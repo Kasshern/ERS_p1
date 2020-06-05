@@ -1,0 +1,9 @@
+#home-container {
+    max-width: 40vw;
+    margin: auto;
+    padding: 10px;
+}
+
+form {
+    padding: 10px;
+}
