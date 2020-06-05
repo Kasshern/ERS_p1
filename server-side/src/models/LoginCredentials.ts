@@ -1,6 +1,7 @@
 export class LoginCredentials {
-    userName: string;
+    username: string;
     userPassword: string;
+    userRole: string;
 
 /**
  *  Static function for creating a UserRole instance based on
@@ -12,18 +13,21 @@ export class LoginCredentials {
 static from(obj: LoginCredentialsRow): LoginCredentials {
     const loginCredentials = new LoginCredentials(
         obj.ers_username,
-        obj.ers_password
+        obj.ers_password,
+        obj.user_role
     );
     return loginCredentials;
 }
 
-    constructor( userName: string, userPassword: string) {
-        this.userName = userName;
+    constructor( username: string, userPassword: string, userRole: string) {
+        this.username = username;
         this.userPassword = userPassword;
+        this.userRole = userRole;
     }
 }
 
 export interface LoginCredentialsRow {
     ers_username: string;
     ers_password: string;
+    user_role: string;
 }

@@ -1,14 +1,12 @@
 import express from 'express';
 import * as employeeService from '../services/employee.service';
 import { Reimbursement } from '../models/Reimbursement';
-import { LoginCredentials } from '../models/LoginCredentials';
-import bcrypt from 'bcrypt';
-
+import * as authenticator from './authentication.router';
 
 export const employeeRouter = express.Router();
 
 // Retrieves an Array of all past reimbursement tickets
-employeeRouter.get('', async (request, response, next) => {
+employeeRouter.get('', authenticator.authenticateJWT, async (request, response, next) => {
     let reimbursements: Reimbursement[];
 
     try {
@@ -23,7 +21,7 @@ employeeRouter.get('', async (request, response, next) => {
 });
 
 // Retrieves an array of all past reimbursement ticket by employee ID
-employeeRouter.get('/:id/reimbursement', async (request, response, next) => {
+employeeRouter.get('/:id/reimbursement', authenticator.authenticateJWT, async (request, response, next) => {
     const id: number = parseInt(request.params.id);
     let reimbursementRequests: Reimbursement[];
 
@@ -43,7 +41,7 @@ employeeRouter.get('/:id/reimbursement', async (request, response, next) => {
 });
 
 // Route for adding/saving a new reimbursement request 
-employeeRouter.post('/reimbursement', async (request, response, next) => {
+employeeRouter.post('/reimbursement', authenticator.authenticateJWT, async (request, response, next) => {
     const reimbursement = request.body;
     let newReimbursement: Reimbursement;
 
@@ -59,34 +57,3 @@ employeeRouter.post('/reimbursement', async (request, response, next) => {
     next();
 });
 
-// ! fetch user drom DB all the way to here and compare here, also do a check that user exists. 
-// Route for adding/saving a new reimbursement request 
-employeeRouter.post('/login', async (request, response, next) => {
-    const loginCredentials = request.body;
-    let LoginCredentialsResponse: LoginCredentials;
-
-    try {
-        LoginCredentialsResponse = await employeeService.checkLoginCredentials(loginCredentials);
-    } catch (err) {
-        console.log(err);
-        response.sendStatus(500);
-        return;
-    }
-
-    if (!LoginCredentialsResponse) {
-        response.sendStatus(404);
-    } else {
-
-        const match = await bcrypt.compare(loginCredentials.userPassword, LoginCredentialsResponse.userPassword);
-
-        if (!match) {
-            response.sendStatus(401);
-            // response.redirect('/');
-        } else {
-            response.json(LoginCredentialsResponse);
-            response.status(201);
-            // repsonse.redirect('/');
-        }
-    }
-    next();
-});

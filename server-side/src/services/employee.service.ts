@@ -16,7 +16,7 @@ export function saveReimbursement(reimbursement: any): Promise<Reimbursement> {
         undefined,
         reimbursement.reimbAmount,
         new Date(reimbursement.reimbSubmitted),
-        new Date (reimbursement.reimbResolved),
+        new Date(reimbursement.reimbResolved),
         reimbursement.reimbDescription,
         reimbursement.reimbReceipt,
         reimbursement.reimbAuthor,
@@ -42,11 +42,13 @@ export function saveReimbursement(reimbursement: any): Promise<Reimbursement> {
 
 export function checkLoginCredentials(loginCredentials: any): Promise<LoginCredentials> {
     const newLoginCredentials = new LoginCredentials(
-        loginCredentials.userName,
-        loginCredentials.userPassword
+        loginCredentials.username,
+        loginCredentials.userPassword,
+        loginCredentials.userRole
     );
+    console.log(newLoginCredentials);
+    if (loginCredentials.username && loginCredentials.userPassword) {
 
-    if (loginCredentials.userName && loginCredentials.userPassword) {
         return employeeDao.checkLoginCredentials(newLoginCredentials);
     } else {
         return new Promise((resolve, reject) => reject(422));

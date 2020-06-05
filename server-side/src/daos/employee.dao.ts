@@ -52,15 +52,16 @@ export async function saveReimbursement(reimbursement: Reimbursement): Promise<R
 //! Hash of userPassword should be done as soon as possible-> in the router? Here we should 
 //! use something like person exists to check the hash or just do it like normal and check with normal query?
 export async function checkLoginCredentials(loginCredentials: LoginCredentials): Promise<LoginCredentials> {
-    const userExists: boolean = await usernameExists(loginCredentials.userName);
+    const userExists: boolean = await usernameExists(loginCredentials.username);
     if (!userExists) {
         return undefined;
     }
 
-    const sql = `SELECT ers_password FROM ers_users WHERE ers_users.ers_username = $1`;
+    const sql = `SELECT ers_username, ers_password, user_role FROM ers_users LEFT JOIN \
+                    ers_user_roles ON ers_users_id = ers_user_role_id WHERE ers_users.ers_username = $1`;
 
     const result = await db.query<LoginCredentialsRow>(sql, [
-        loginCredentials.userName
+        loginCredentials.username
     ]);
 
     return  result.rows.map(LoginCredentials.from)[0];

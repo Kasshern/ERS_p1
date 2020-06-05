@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import { employeeRouter } from './routers/employee.router';
 import { financeManagerRouter } from './routers/financeManager.router';
 import { db } from './daos/db';
+import { authenticationRouter } from './routers/authentication.router';
 
 // Initialize express app
 const app = express();
@@ -28,6 +29,7 @@ app.use((request, response, next) => {
     next();
 })
 
+app.use('/authentication', authenticationRouter)
 app.use('/employee', employeeRouter)
 app.use('/financeManager', financeManagerRouter)
 

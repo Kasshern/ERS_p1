@@ -2,12 +2,12 @@ import express from 'express';
 import * as financeManagerService from '../services/financeManager.service';
 import { Reimbursement } from '../models/Reimbursement';
 import { ReimbursementStatus } from '../models/ReimbursementStatus';
-
+import * as authenticator from './authentication.router'
 
 export const financeManagerRouter = express.Router();
 
 // Retrieves an Array of all reimbursement tickets from all employess
-financeManagerRouter.get('', async (request, response, next) => {
+financeManagerRouter.get('', authenticator.authenticateJWT, async (request, response, next) => {
     let reimbursementRequests: Reimbursement[];
 
     try {
@@ -21,7 +21,7 @@ financeManagerRouter.get('', async (request, response, next) => {
 });
 
 // Retrieves an Array of all reimbursement tickets by status
-financeManagerRouter.get('/:status', async (request, response, next) => {
+financeManagerRouter.get('/:status', authenticator.authenticateJWT, async (request, response, next) => {
     const status: string = request.params.status;
     let reimbursementRequests: Reimbursement[];
 
@@ -41,7 +41,7 @@ financeManagerRouter.get('/:status', async (request, response, next) => {
 });
 
 // Retrieves an Array of all reimbursement tickets sorted by input value
-financeManagerRouter.get('sort/:sortValue', async (request, response, next) => {
+financeManagerRouter.get('sort/:sortValue', authenticator.authenticateJWT, async (request, response, next) => {
     const sortValue: string = request.params.sortValue;
     let reimbursementRequests: Reimbursement[];
 
@@ -62,7 +62,7 @@ financeManagerRouter.get('sort/:sortValue', async (request, response, next) => {
 
 // !Should the reimb number be captured by the url and passed through? I don't think so. Look at previous patches
 // Approves or denies a reimbursement request by Updating ticket status 
-financeManagerRouter.patch('', async (request, response, next) => {
+financeManagerRouter.patch('', authenticator.authenticateJWT, async (request, response, next) => {
     const reimbursementStatus = request.body;
     let updatedReimbursementStatus: ReimbursementStatus;
 
