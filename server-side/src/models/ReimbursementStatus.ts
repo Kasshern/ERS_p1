@@ -1,6 +1,6 @@
 export class ReimbursementStatus {
     reimbStatusId: number;
-    reimbStatus: string;
+    reimbId: number;
 
 /**
  *  Static function for creating a ReimbursementStatus instance based on
@@ -12,18 +12,18 @@ export class ReimbursementStatus {
 static from(obj: ReimbursementStatusRow): ReimbursementStatus {
     const reimbursementStatus = new ReimbursementStatus(
         obj.reimb_status_id,
-        obj.reimb_status
+        obj.reimb_id
     );
     return reimbursementStatus;
 }
 
-    constructor( reimbStatusId: number, reimbStatus: string) {
+    constructor( reimbStatusId: number, reimbId: number) {
         this.reimbStatusId = reimbStatusId;
-        this.reimbStatus = reimbStatus;
+        this.reimbId = reimbId;
     }
 }
 
 export interface ReimbursementStatusRow {
     reimb_status_id: number;
-    reimb_status: string;
+    reimb_id: number;
 }

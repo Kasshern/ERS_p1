@@ -19,7 +19,7 @@ export function patchReimbursementStatus(input: any): Promise<ReimbursementStatu
 
     const reimbursementStatus = new ReimbursementStatus(
         input.reimbStatusId,
-        input.reimbStatus
+        input.reimbId
     );
 
     // Check that new trainer is a valid id

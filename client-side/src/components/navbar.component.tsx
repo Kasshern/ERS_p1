@@ -6,17 +6,15 @@ import { Navbar, Nav, Form, FormControl, Button, NavDropdown } from 'react-boots
 
 export const NavbarComponent: React.FC = () => {
 
-
-
     return (
 
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/home">Expense Reimbursement System </Navbar.Brand>
+            <Navbar.Brand id="navbrand" href="/home">ERS </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/upload">Upload</Nav.Link>
-                    <Nav.Link href="/reimbursements">Reimbursements</Nav.Link>
+                    <Nav.Link href="/upload">Manage Reimbursements</Nav.Link>
+                    <Nav.Link href="/reimbursements">View/Add Reimbursements</Nav.Link>
                     <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

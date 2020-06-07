@@ -12,18 +12,20 @@ export const HomeComponent: React.FC = () => {
     useEffect(() => {
     }, [])
     
+    
     const addLoginCredentials = async () => {
+        
         const payload = {
             username: inputUsername,
             userPassword: inputUserPassword
         };
-
+/*
         let authToken = await loginRemote.CheckLoginCredentials(payload);
         setInputUsername('');
         setInputUserPassword('');
         document.token = `token=${authToken}`;
+        */
     }
-
 
     return (
         <div id="home-container">

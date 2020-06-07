@@ -17,7 +17,9 @@ app.set('port', port);
         app.use((request, response, next) => {
             response.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
             response.setHeader('Access-Control-Allow-Headers', 'content-type')
-            // response.setHeader('Access-Control-Allow-Methods', 'GET POST');
+            response.setHeader('Access-Control-Allow-Methods', 'PATCH');
+            // response.setHeader('Access-Control-Allow-Methods', 'GET');
+            // response.setHeader('Access-Control-Allow-Methods', 'POST');
             next();
         })
         

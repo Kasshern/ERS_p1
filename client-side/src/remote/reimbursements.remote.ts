@@ -1,5 +1,6 @@
 import { internalAxios } from './internal-axios'
 import { Reimbursement } from '../models/Reimbursement';
+import { ReimbursementStatus } from '../models/ReimbursementStatus';
 
 
 export const getAllReimbursements = async () => {
@@ -13,5 +14,10 @@ export const getAllReimbursements = async () => {
 
 export const createReimbursement = async (reimbursement: Reimbursement) => {
     const response = await internalAxios.post('/employee/reimbursement', reimbursement);
+    return true;
+}
+
+export const patchReimbursement = async (reimbursementStatus: ReimbursementStatus) => {
+    const response = await internalAxios.patch('/financeManager', reimbursementStatus);
     return true;
 }

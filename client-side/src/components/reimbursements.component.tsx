@@ -6,7 +6,6 @@ import { Modal, Button, Form, Table, Col } from 'react-bootstrap';
 export const ReimbursementComponent: React.FC = () => {
 
     const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
-
     const [inputReimbursementAmount, setInputReimbursementAmount] = useState(0);
     const [inputReimbursementSubmitted, setInputReimbursementSubmitted] = useState('');
     const [inputReimbursementResolved, setInputReimbursementResolved] = useState('');
@@ -17,7 +16,6 @@ export const ReimbursementComponent: React.FC = () => {
     const [inputReimbursementStatusId, setInputReimbursementStatusId] = useState(1);
     const [inputReimbursementTypeId, setInputReimbursementTypeId] = useState(1);
     const [inputReimbursementStatus, setInputReimbursementStatus] = useState('');
-
     //  const [inputReimbursementType, setInputReimbursementType] = useState('');
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -60,46 +58,48 @@ export const ReimbursementComponent: React.FC = () => {
     }
 
     return (
-        <div>
+        <div id="flex-container">
             <header>
                 <h2 id="reimbursement-header" className="dark">Reimbursements
                 </h2>
             </header>
 
-            <Table responsive>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Amount</th>
-                        <th>Submission Date</th>
-                        <th>Resolution Date</th>
-                        <th>Description</th>
-                        <th>Receipt</th>
-                        <th>Author</th>
-                        <th>Resolver</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {reimbursements.map(r => {
-                        return (<tr key={r.reimbId}>
-                            <th scope="row">{r.reimbId}</th>
-                            <td>{r.reimbAmount}</td>
-                            <td>{typeof r.reimbSubmitted == 'string' ?
-                                r.reimbSubmitted :
-                                r.reimbSubmitted.toDateString()}</td>
-                            <td>{typeof r.reimbResolved == 'string' ?
-                                r.reimbResolved :
-                                r.reimbResolved.toDateString()}</td>
-                            <td>{r.reimbDescription}</td>
-                            <td>{r.reimbReceipt}</td>
-                            <td>{r.reimbAuthor}</td>
-                            <td>{r.reimbResolver}</td>
-                            <td>{r.reimbStatus}</td>
-                        </tr>)
-                    })}
-                </tbody>
-            </Table>
+            <section>
+                <Table responsive>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Amount</th>
+                            <th>Submission Date</th>
+                            <th>Resolution Date</th>
+                            <th>Description</th>
+                            <th>Receipt</th>
+                            <th>Author</th>
+                            <th>Resolver</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reimbursements.map(r => {
+                            return (<tr key={r.reimbId}>
+                                <th scope="row">{r.reimbId}</th>
+                                <td>{r.reimbAmount}</td>
+                                <td>{typeof r.reimbSubmitted == 'string' ?
+                                    r.reimbSubmitted :
+                                    r.reimbSubmitted.toDateString()}</td>
+                                <td>{typeof r.reimbResolved == 'string' ?
+                                    r.reimbResolved :
+                                    r.reimbResolved.toDateString()}</td>
+                                <td>{r.reimbDescription}</td>
+                                <td>{r.reimbReceipt}</td>
+                                <td>{r.reimbAuthor}</td>
+                                <td>{r.reimbResolver}</td>
+                                <td>{r.reimbStatus}</td>
+                            </tr>)
+                        })}
+                    </tbody>
+                </Table>
+            </section>
 
             <Modal show={modalVisible} onHide={() => setModalVisible(false)}>
                 <Modal.Header>

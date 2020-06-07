@@ -42,12 +42,12 @@ export async function getAllReimbursementsSorted(sortValue: string): Promise<Rei
 
 // Changes the status of a reimbursement request from pending to accepted or denied
 export async function patchReimbursementStatus(reimbursementStatus: ReimbursementStatus): Promise<ReimbursementStatus> {
-    const sql = `UPDATE ers_reimbursement_status SET reimb_status = COALESCE($1, reimb_status) \
-                WHERE reimb_status_id = $2 RETURNING *`;
+    const sql = `UPDATE ers_reimbursement SET reimb_status_id = COALESCE($1, reimb_status_id) \
+                WHERE reimb_id = $2 RETURNING *`;
 
     const result = await db.query<ReimbursementStatusRow>(sql, [
-        reimbursementStatus.reimbStatus,
-        reimbursementStatus.reimbStatusId
+        reimbursementStatus.reimbStatusId,
+        reimbursementStatus.reimbId
 
     ]);
     return result.rows.map(ReimbursementStatus.from)[0];
